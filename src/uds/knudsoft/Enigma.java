@@ -13,9 +13,9 @@ public class Enigma {
         //Intro
         //Encode/decode? Number/Caesar/Vigenere?
 
-        int optionMainMenu = 0;
+        int optionMainMenu;
         do {
-            System.out.print("\nTast e for encode eller d for decode: ");
+            System.out.print("\nEnter e for encode or d for decode: ");
             String inputMainMenu = input.nextLine().toUpperCase();
             if (inputMainMenu.startsWith("E")) {
                 optionMainMenu = 0;
@@ -24,10 +24,9 @@ public class Enigma {
             } else {
                 optionMainMenu = 7;
             }
-            System.out.print("Tast n for Number, c for Caesar eller v for Vigenere: ");
+            System.out.print("Enter n for Number, c for Caesar or v for Vigenere: ");
             inputMainMenu = input.nextLine().toUpperCase();
             if (inputMainMenu.startsWith("N")) {
-
             } else if (inputMainMenu.startsWith("C")) {
                 optionMainMenu += 2;
             } else if (inputMainMenu.startsWith("V")) {
@@ -36,26 +35,13 @@ public class Enigma {
                 optionMainMenu = 7;
             }
             switch (optionMainMenu) {
-                case 0:
-                    encodeNumberCipher();
-                    break;
-                case 1:
-                    decodeNumberCipher();
-                    break;
-                case 2:
-                    encodeCaesarCipher();
-                    break;
-                case 3:
-                    decodeCaesarCipher();
-                    break;
-                case 4:
-                    encodeVigenereCipher();
-                    break;
-                case 5:
-                    decodeVigenereCipher();
-                    break;
-                default:
-                    System.out.println("Unrecognized input...");
+                case 0 -> encodeNumberCipher();
+                case 1 -> decodeNumberCipher();
+                case 2 -> encodeCaesarCipher();
+                case 3 -> decodeCaesarCipher();
+                case 4 -> encodeVigenereCipher();
+                case 5 -> decodeVigenereCipher();
+                default -> System.out.println("Unrecognized input...");
             }
         }
         while (optionMainMenu < 7);
@@ -65,7 +51,7 @@ public class Enigma {
     public static void encodeNumberCipher() {
         System.out.println("Encoding with Number Cipher...");
         //input a string converted to upper case - test with "abe"
-        System.out.print("Indtast en streng: ");
+        System.out.print("Input a string: ");
         String inputString = input.nextLine();
         inputString = inputString.toUpperCase();
 
@@ -84,8 +70,8 @@ public class Enigma {
     //Decode Number
     public static void decodeNumberCipher() {
         System.out.println("Decoding with Number Cipher...");
-        System.out.println("Indtast en liste som {x, y, ... z}");
-        System.out.print("Eller paste en tidligere udskrevet kode: ");
+        System.out.println("Input a list in the form {x, y, ... z}");
+        System.out.print("Or paste a previously coded list: ");
         String inputString = input.nextLine();
 
         //Find how many code numbers in the list
@@ -96,7 +82,7 @@ public class Enigma {
         String[] subString = sliceStringIntoCodeStrings(inputString, elements);
 
         //convert the code number strings to code numbers and output the decoded letters.
-        System.out.print("Teksten var: ");
+        System.out.print("The text was: ");
         for (int i = 0; i < elements; i++) {
             codeString[i] = Integer.parseInt(subString[i]);
             //could shift here for Caesar
@@ -108,25 +94,68 @@ public class Enigma {
     //Encode Caesar
     public static void encodeCaesarCipher() {
         System.out.println("Encoding with Caesar Cipher...");
-        System.out.println("Koden er: DEH");
+        //input a text and a shift value
+        System.out.print("Input a text to encode: ");
+        String inputString = input.nextLine();
+        inputString = inputString.toUpperCase();
+        System.out.print("Input a code number: ");
+        int shiftCaesar = input.nextInt();
+        input.nextLine(); //Flush cr from the nextInt
+        shiftCaesar = (Math.abs(shiftCaesar) % 30); //only shift by 0-30
+
+        //convert the input string to a list of numbers
+        int[] intArray = stringToNumbers(inputString);
+
+        //Shift by amount shiftCaesar
+        for (int i=0;i<intArray.length;i++) {
+                intArray[i] = (intArray[i] + shiftCaesar) % 30;
+        }
+
+        //convert the list of numbers to an encoded string
+        String outputString = convertListOfNumbersToText(intArray);
+
+        //output encoded string
+        System.out.println("The encoded text is: " + outputString);
     }
 
     //Decode Caesar
     public static void decodeCaesarCipher() {
         System.out.println("Decoding with Caesar Cipher...");
-        System.out.println("Teksten var: ABE");
+        //input a text and a shift value
+        System.out.print("Input a text to decode: ");
+        String inputString = input.nextLine();
+        inputString = inputString.toUpperCase();
+        System.out.print("Input the code number: ");
+        int shiftCaesar = input.nextInt();
+        input.nextLine(); //Flush cr from the nextInt
+        shiftCaesar = (Math.abs(shiftCaesar) % 30); //only shift by 0-30
+
+        //convert the input string to a list of numbers
+        int[] intArray = stringToNumbers(inputString);
+
+        //Shift by amount -shiftCaesar
+        for (int i=0;i<intArray.length;i++) {
+            intArray[i] = (intArray[i] - shiftCaesar + 30) % 30;
+        }
+
+        //convert the list of numbers to an encoded string
+        String outputString = convertListOfNumbersToText(intArray);
+
+        //output encoded string
+        System.out.println("The original text was: " + outputString);
     }
+
 
     //Encode Vigenere
     public static void encodeVigenereCipher() {
         System.out.println("Encoding with Vigenere Cipher...");
-        System.out.println("Koden er: DEH");
+        System.out.println("The code is: ??? not implemented");
     }
 
     //Decode Vigenere
     public static void decodeVigenereCipher() {
         System.out.println("Decoding with Vigenere Cipher...");
-        System.out.println("Teksten var: ABE");
+        System.out.println("The text was: ??? not implemented");
     }
 
     //method to convert a string to a list of numbers
@@ -148,15 +177,25 @@ public class Enigma {
         return CHARACTERS.indexOf(letter);
     }
 
+    //method to convert a list of numbers to a text
+    public static String convertListOfNumbersToText(int[] intArray) {
+        final String CHARACTERS = " ABCDEFGHIJKLMNOPQRSTUVWXYZÆØÅ";
+        StringBuilder outputString = new StringBuilder();
+        for (int j : intArray) {
+            outputString.append(CHARACTERS.charAt(j));
+        }
+        return outputString.toString();
+    }
+
     //method to convert a list of numbers to a string
     public static String convertListOfNumbersToString(int[] intArray) {
         int inputLength = intArray.length;
-        String outputString = "{";
+        StringBuilder outputString = new StringBuilder("{");
         for (int i = 0; i < inputLength - 1; i++) {
-            outputString += intArray[i] + ", "; //todo research StringBuilder
+            outputString.append(intArray[i]).append(", ");
         }
-        outputString += intArray[inputLength - 1] + "}";
-        return outputString;
+        outputString.append(intArray[inputLength - 1]).append("}");
+        return outputString.toString();
     }
 
     //method to convert 1 number to a letter

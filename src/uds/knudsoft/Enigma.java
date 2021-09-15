@@ -156,13 +156,71 @@ public class Enigma {
     //Encode Vigenere
     public static void encodeVigenereCipher() {
         System.out.println("Encoding with Vigenere Cipher...");
-        System.out.println("The code is: ??? not implemented");
+        //input a text and a codeword used to shift the letters converted to uppercase
+        System.out.print("Input a text to encode: ");
+        String inputString = input.nextLine().toUpperCase();
+        System.out.print("Input a code word: ");
+        StringBuilder shiftVigenere = new StringBuilder(input.nextLine().toUpperCase());
+
+        //make the codeword at least as long as inputString by repeating as necessary
+        while (shiftVigenere.length() < inputString.length()) {
+            shiftVigenere.append(shiftVigenere);
+        }
+
+        //convert the input string to a list of numbers
+        int[] intArray = stringToNumbers(inputString);
+
+        //convert the code word to a list of numbers
+        int[] shiftArray = stringToNumbers(shiftVigenere.toString());
+
+        //Shift by amount shiftVigenere
+        for (int i=0;i<intArray.length;i++) {
+            intArray[i] = (intArray[i] + shiftArray[i]) % 30;
+        }
+
+        //convert the list of numbers to an encoded string
+        String outputString = convertListOfNumbersToText(intArray);
+
+        //output encoded string
+        System.out.println("The encoded text is: " + outputString);
     }
 
     //Decode Vigenere
     public static void decodeVigenereCipher() {
         System.out.println("Decoding with Vigenere Cipher...");
-        System.out.println("The text was: ??? not implemented");
+        //input a text and a codeword used to shift the letters converted to uppercase
+        System.out.print("Input a text to encode: ");
+        String inputString = input.nextLine().toUpperCase();
+        System.out.print("Input a code word: ");
+        StringBuilder shiftVigenere = new StringBuilder(input.nextLine().toUpperCase());
+
+        //make the codeword at least as long as inputString by repeating as necessary
+        while (shiftVigenere.length() < inputString.length()) {
+            shiftVigenere.append(shiftVigenere);
+        }
+
+        //convert the input string to a list of numbers
+        int[] intArray = stringToNumbers(inputString);
+
+        //convert the code word to a list of numbers
+        int[] shiftArray = stringToNumbers(shiftVigenere.toString());
+
+        //Shift by amount -shiftVigenere
+        for (int i=0;i<intArray.length;i++) {
+            intArray[i] = (intArray[i] - shiftArray[i] + 30) % 30;
+        }
+
+        //convert the list of numbers to an encoded string
+        String outputString = convertListOfNumbersToText(intArray);
+
+        //output encoded string
+        System.out.println("The encoded text is: " + outputString);
+    }
+
+
+    //method to produce a list of shift values to apply to the input text
+    public static int[] getVigenereShiftValues(String kodeword) {
+        return null;
     }
 
     //method to convert a string to a list of numbers

@@ -128,7 +128,7 @@ public class Enigma {
         //convert the input string to a list of numbers
         int[] intArray = stringToNumbers(inputString);
 
-        //Shift by amount -shiftCaesar
+        //Shift by amount sign*shiftCaesar
         for (int i = 0; i < intArray.length; i++) {
             intArray[i] = (intArray[i] + sign * shiftCaesar + 30) % 30;
         }
@@ -172,7 +172,7 @@ public class Enigma {
         //convert the code word to a list of numbers
         int[] shiftArray = stringToNumbers(shiftVigenere.toString());
 
-        //Shift by amount -shiftVigenere
+        //Shift by amount sign*shiftVigenere
         for (int i = 0; i < intArray.length; i++) {
             intArray[i] = (intArray[i] + sign * shiftArray[i] + 30) % 30;
         }

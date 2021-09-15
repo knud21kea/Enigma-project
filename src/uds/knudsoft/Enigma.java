@@ -9,12 +9,13 @@ public class Enigma {
     public static void main(String[] args) {
 
         //Enigma project: Number cipher, Caesar cipher, Vigenere cipher
+        //Accepts danish alphabet and space, but UI in English, sorry.
 
         //Intro
         System.out.println("\nWelcome to 'Enigma'.");
         System.out.println("This program encodes or decodes a string using one of 3 different encryption models: Number, Caesar and Vigenere ciphers.");
-        System.out.println("The user starts by choosing encode or decode, and then which model.");
-        System.out.println("The program quits with an invalid option entry.");
+        System.out.println("The user starts by choosing encode or decode, and then which cipher.");
+        System.out.println("The program quits on invalid option entry.");
 
         /*Encode/decode? Number/Caesar/Vigenere?
         optionMainMenu stores choices as bits:
@@ -26,19 +27,19 @@ public class Enigma {
         do {
             System.out.print("\nEnter e for encode or d for decode: ");
             String inputMainMenu = input.nextLine().toUpperCase();
-            if (inputMainMenu.startsWith("E")) {
+            if (inputMainMenu.startsWith("E")) { //Encode
                 optionMainMenu = 0;
-            } else if (inputMainMenu.startsWith("D")) {
+            } else if (inputMainMenu.startsWith("D")) { //Decode
                 optionMainMenu = 1;
             } else {
                 optionMainMenu = 7;
             }
             System.out.print("Enter n for Number, c for Caesar or v for Vigenere: ");
             inputMainMenu = input.nextLine().toUpperCase();
-            if (inputMainMenu.startsWith("N")) { //Number cipher is default
-            } else if (inputMainMenu.startsWith("C")) {
+            if (inputMainMenu.startsWith("N")) { //Uses Number cipher by default
+            } else if (inputMainMenu.startsWith("C")) { //Use Caesar cipher
                 optionMainMenu += 2;
-            } else if (inputMainMenu.startsWith("V")) {
+            } else if (inputMainMenu.startsWith("V")) { //Use Vigenere cipher
                 optionMainMenu += 4;
             } else {
                 optionMainMenu = 7;

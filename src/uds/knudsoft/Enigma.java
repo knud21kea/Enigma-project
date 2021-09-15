@@ -98,39 +98,26 @@ public class Enigma {
     }
 
     //Encode Caesar
-    //Space is encoded as a normal character, this improves security as the encoded text may have spaces that are not between words
     public static void encodeCaesarCipher() {
         System.out.println("Encoding with Caesar Cipher...");
-        //input a text and a value used to shift the letters
-        System.out.print("Input a text to encode: ");
-        String inputString = input.nextLine();
-        inputString = inputString.toUpperCase();
-        System.out.print("Input a code number: ");
-        int shiftCaesar = input.nextInt();
-        input.nextLine(); //Flush cr from the nextInt
-        shiftCaesar = (Math.abs(shiftCaesar) % 30); //only shift by 0-30
-
-        //convert the input string to a list of numbers
-        int[] intArray = stringToNumbers(inputString);
-
-        //Shift by amount shiftCaesar
-        for (int i = 0; i < intArray.length; i++) {
-            intArray[i] = (intArray[i] + shiftCaesar) % 30;
-        }
-
-        //convert the list of numbers to an encoded string
-        String outputString = convertListOfNumbersToText(intArray);
-
+        String outputString = commonCaesarCipher(1);
         //output encoded string
         System.out.println("The encoded text is: " + outputString);
     }
 
     //Decode Caesar
-    //If there were spaces in the original text they will be preserved
     public static void decodeCaesarCipher() {
         System.out.println("Decoding with Caesar Cipher...");
+        String outputString = commonCaesarCipher(-1);
+        //output encoded string
+        System.out.println("The original text was: " + outputString);
+    }
+
+    //method common to Caesar encoding/decoding controlled by a switch
+    //Space is encoded as a normal character, this improves security as the encoded text may have spaces that are not between words
+    public static String commonCaesarCipher(int sign) {
         //input a text and a value used to shift the letters
-        System.out.print("Input a text to decode: ");
+        System.out.print("Input a text: ");
         String inputString = input.nextLine();
         inputString = inputString.toUpperCase();
         System.out.print("Input the code number: ");
@@ -143,14 +130,11 @@ public class Enigma {
 
         //Shift by amount -shiftCaesar
         for (int i = 0; i < intArray.length; i++) {
-            intArray[i] = (intArray[i] - shiftCaesar + 30) % 30;
+            intArray[i] = (intArray[i] + sign * shiftCaesar + 30) % 30;
         }
 
         //convert the list of numbers to an encoded string
-        String outputString = convertListOfNumbersToText(intArray);
-
-        //output encoded string
-        System.out.println("The original text was: " + outputString);
+        return convertListOfNumbersToText(intArray);
     }
 
     //Encode Vigenere
@@ -166,7 +150,7 @@ public class Enigma {
         System.out.println("Decoding with Vigenere Cipher...");
         String outputString = commonVigenereCipher(-1);
         //output encoded string
-        System.out.println("The encoded text is: " + outputString);
+        System.out.println("The original text was: " + outputString);
     }
 
     //method common to Vigenere encoding/decoding controlled by a switch
@@ -195,7 +179,7 @@ public class Enigma {
 
         //convert the list of numbers to an encoded string
         return convertListOfNumbersToText(intArray);
-        }
+    }
 
     //method to convert a string to a list of numbers
     public static int[] stringToNumbers(String inputString) {

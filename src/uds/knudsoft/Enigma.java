@@ -153,7 +153,6 @@ public class Enigma {
         System.out.println("The original text was: " + outputString);
     }
 
-
     //Encode Vigenere
     public static void encodeVigenereCipher() {
         System.out.println("Encoding with Vigenere Cipher...");

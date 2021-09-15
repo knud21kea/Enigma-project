@@ -156,19 +156,23 @@ public class Enigma {
     //Encode Vigenere
     public static void encodeVigenereCipher() {
         System.out.println("Encoding with Vigenere Cipher...");
-        commonVigenereCipher(1);
+        String outputString = commonVigenereCipher(1);
+        //output encoded string
+        System.out.println("The encoded text is: " + outputString);
     }
 
     //Decode Vigenere
     public static void decodeVigenereCipher() {
         System.out.println("Decoding with Vigenere Cipher...");
-        commonVigenereCipher(-1);
+        String outputString = commonVigenereCipher(-1);
+        //output encoded string
+        System.out.println("The encoded text is: " + outputString);
     }
 
     //method common to Vigenere encoding/decoding controlled by a switch
-    public static void commonVigenereCipher(int sign) {
+    public static String commonVigenereCipher(int sign) {
         //input a text and a codeword used to shift the letters converted to uppercase
-        System.out.print("Input a text to encode: ");
+        System.out.print("Input a text: ");
         String inputString = input.nextLine().toUpperCase();
         System.out.print("Input a code word: ");
         StringBuilder shiftVigenere = new StringBuilder(input.nextLine().toUpperCase());
@@ -190,11 +194,8 @@ public class Enigma {
         }
 
         //convert the list of numbers to an encoded string
-        String outputString = convertListOfNumbersToText(intArray);
-
-        //output encoded string
-        System.out.println("The encoded text is: " + outputString);
-    }
+        return convertListOfNumbersToText(intArray);
+        }
 
     //method to convert a string to a list of numbers
     public static int[] stringToNumbers(String inputString) {

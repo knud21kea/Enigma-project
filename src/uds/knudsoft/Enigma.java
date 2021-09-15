@@ -60,7 +60,7 @@ public class Enigma {
     //Encode Number
     public static void encodeNumberCipher() {
         System.out.println("Encoding with Number Cipher...");
-        //input a string converted to upper case - test with "abe"
+        //input a string converted to upper case
         System.out.print("Input a string: ");
         String inputString = input.nextLine();
         inputString = inputString.toUpperCase();
@@ -266,7 +266,3 @@ public class Enigma {
         return codeString;
     }
 }
-
-
-
-

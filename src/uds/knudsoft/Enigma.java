@@ -84,7 +84,25 @@ public class Enigma {
     //Decode Number
     public static void decodeNumberCipher() {
         System.out.println("Decoding with Number Cipher...");
-        System.out.println("Teksten var: ABE");
+        System.out.println("Indtast en liste som {x, y, ... z}");
+        System.out.print("Eller paste en tidligere udskrevet kode: ");
+        String inputString = input.nextLine();
+
+        //Find how many code numbers in the list
+        final int elements = getNumberOfElements(inputString);
+
+        //Extract the code numbers with custom algorithm
+        int[] codeString = new int[elements];
+        String[] subString = sliceStringIntoCodeStrings(inputString, elements);
+
+        //convert the code number strings to code numbers and output the decoded letters.
+        System.out.print("Teksten var: ");
+        for (int i = 0; i < elements; i++) {
+            codeString[i] = Integer.parseInt(subString[i]);
+            //could shift here for Caesar
+            subString[i] = convertNumberToLetter(codeString[i]);
+            System.out.print(subString[i]);
+        }
     }
 
     //Encode Caesar

@@ -8,8 +8,8 @@ public class Enigma {
 
     public static void main(String[] args) {
 
-        //Enigma project: Number cipher, Caesar cipher, Vigenere cipher
-        //Accepts danish alphabet and space, but UI in English, sorry.
+        /*Enigma project: Number cipher, Caesar cipher, Vigenere cipher
+        Accepts danish alphabet and space, but UI in English, sorry.*/
 
         //Intro
         System.out.println("\nWelcome to 'Enigma'.");
@@ -72,7 +72,7 @@ public class Enigma {
         String outputString = convertListOfNumbersToString(intArray);
 
         //output encoded string
-        System.out.println("Koden er: " + outputString);
+        System.out.println("The code is: " + outputString);
     }
 
     //Decode Number

@@ -11,7 +11,16 @@ public class Enigma {
         //Enigma project: Number cipher, Caesar cipher, Vigenere cipher
 
         //Intro
-        //Encode/decode? Number/Caesar/Vigenere?
+        System.out.println("\nWelcome to 'Enigma'.");
+        System.out.println("This program encodes or decodes a string using one of 3 different encryption models: Number, Caesar and Vigenere ciphers.");
+        System.out.println("The user starts by choosing encode or decode, and then which model.");
+        System.out.println("The program quits with an invalid option entry.");
+
+        /*Encode/decode? Number/Caesar/Vigenere?
+        optionMainMenu stores choices as bits:
+        bit 0 for encode/decode
+        bit 1 for Caesar ciphers instead of Number
+        bit 2 for Vigenere ciphers*/
 
         int optionMainMenu;
         do {
@@ -26,7 +35,7 @@ public class Enigma {
             }
             System.out.print("Enter n for Number, c for Caesar or v for Vigenere: ");
             inputMainMenu = input.nextLine().toUpperCase();
-            if (inputMainMenu.startsWith("N")) {
+            if (inputMainMenu.startsWith("N")) { //Number cipher is default
             } else if (inputMainMenu.startsWith("C")) {
                 optionMainMenu += 2;
             } else if (inputMainMenu.startsWith("V")) {
@@ -58,8 +67,6 @@ public class Enigma {
         //convert the input string to a list of numbers
         int[] intArray = stringToNumbers(inputString);
 
-        //Could shift here for Caesar
-
         //convert the list of numbers to a formatted string of codes
         String outputString = convertListOfNumbersToString(intArray);
 
@@ -85,16 +92,16 @@ public class Enigma {
         System.out.print("The text was: ");
         for (int i = 0; i < elements; i++) {
             codeString[i] = Integer.parseInt(subString[i]);
-            //could shift here for Caesar
             subString[i] = convertNumberToLetter(codeString[i]);
             System.out.print(subString[i]);
         }
     }
 
     //Encode Caesar
+    //Space is encoded as a normal character, this improves security as the encoded text may have spaces that are not between words
     public static void encodeCaesarCipher() {
         System.out.println("Encoding with Caesar Cipher...");
-        //input a text and a shift value
+        //input a text and a value used to shift the letters
         System.out.print("Input a text to encode: ");
         String inputString = input.nextLine();
         inputString = inputString.toUpperCase();
@@ -119,9 +126,10 @@ public class Enigma {
     }
 
     //Decode Caesar
+    //If there were spaces in the original text they will be preserved
     public static void decodeCaesarCipher() {
         System.out.println("Decoding with Caesar Cipher...");
-        //input a text and a shift value
+        //input a text and a value used to shift the letters
         System.out.print("Input a text to decode: ");
         String inputString = input.nextLine();
         inputString = inputString.toUpperCase();
